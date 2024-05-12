@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('email', 254).notNullable().unique()
       table.string('password').notNullable()
       table.date('email_verified_at').nullable()
-      table.boolean('is_suspended').defaultTo(false)
+      table.boolean('is_suspended').notNullable().defaultTo(false)
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
     })
