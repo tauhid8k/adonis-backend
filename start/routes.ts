@@ -19,12 +19,10 @@ router.get('/', async () => {
 router
   .group(() => {
     // Public Routes
-    router
-      .group(() => {
-        router.post('/register', [AuthController, 'register'])
-        router.post('/login', [AuthController, 'login'])
-      })
-      .use(middleware.guest())
+    router.group(() => {
+      router.post('/register', [AuthController, 'register'])
+      router.post('/login', [AuthController, 'login'])
+    })
 
     // Private Routes
     router
