@@ -1,6 +1,7 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { errors } from '@vinejs/vine'
+import { errors as authError } from '@adonisjs/auth'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -17,6 +18,12 @@ export default class HttpExceptionHandler extends ExceptionHandler {
     // Custom Validation Error
     if (error instanceof errors.E_VALIDATION_ERROR) {
       ctx.response.status(422).send({ validationError: error.messages })
+      return
+    }
+
+    // Custom Credentials Error
+    if (error instanceof authError.E_INVALID_CREDENTIALS) {
+      ctx.response.status(422).send({ formError: error.message })
       return
     }
 

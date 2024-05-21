@@ -15,6 +15,7 @@ export default class AuthController {
 
     return response.status(201).json({
       message: 'Registration successful',
+      formMessage: 'We have sent a verification link to your email. Please verify to continue',
     })
   }
 
@@ -23,6 +24,15 @@ export default class AuthController {
     const { email, password } = await request.validateUsing(loginValidator)
 
     const user = await User.verifyCredentials(email, password)
+
+    // Check email verification
+    if (!user.emailVerifiedAt) {
+      // TODO: Send verification email
+
+      return response.json({
+        formMessage: 'We have sent a verification link to your email. Please verify to continue',
+      })
+    }
 
     await auth.use('web').login(user, !!request.input('remember_me'))
 
