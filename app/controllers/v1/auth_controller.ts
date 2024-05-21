@@ -4,12 +4,10 @@ import User from '#models/user'
 
 export default class AuthController {
   // Register User
-  async register({ request, response, auth }: HttpContext) {
+  async register({ request, response }: HttpContext) {
     const payload = await request.validateUsing(registerValidator)
 
     const user = await User.create(payload)
-
-    await auth.use('web').login(user)
 
     // TODO: Send verification email
 
