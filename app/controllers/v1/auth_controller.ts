@@ -7,7 +7,7 @@ export default class AuthController {
   async register({ request, response }: HttpContext) {
     const payload = await request.validateUsing(registerValidator)
 
-    const user = await User.create(payload)
+    await User.create(payload)
 
     // TODO: Send verification email
 
