@@ -27,8 +27,8 @@ export default class AuthController {
     if (!user.emailVerifiedAt) {
       // TODO: Send verification email
 
-      return response.json({
-        formMessage: 'We have sent a verification link to your email. Please verify to continue',
+      return response.status(403).json({
+        formError: 'We have sent a verification link to your email. Please verify to continue',
       })
     }
 
@@ -44,7 +44,7 @@ export default class AuthController {
     await auth.use('web').logout()
 
     return response.json({
-      message: 'You are now logged out',
+      message: 'Logged out',
     })
   }
 }
