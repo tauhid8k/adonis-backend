@@ -3,6 +3,14 @@ import { registerValidator, loginValidator } from '#validators/auth_validator'
 import User from '#models/user'
 
 export default class AuthController {
+  // Check Authentication
+  async isAuthenticated({ response, auth }: HttpContext) {
+    return response.json({
+      auth: auth.isAuthenticated,
+      user: auth.use('web').user,
+    })
+  }
+
   // Register User
   async register({ request, response }: HttpContext) {
     const payload = await request.validateUsing(registerValidator)
