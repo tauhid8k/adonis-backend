@@ -34,10 +34,6 @@ export default class AuthController {
     // Check email verification
     if (!user.emailVerifiedAt) {
       // TODO: Send verification email
-
-      return response.status(403).json({
-        formError: 'We have sent a verification link to your email. Please verify to continue',
-      })
     }
 
     await auth.use('web').login(user, !!request.input('remember_me'))
